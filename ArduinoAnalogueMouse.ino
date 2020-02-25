@@ -3,17 +3,23 @@
 #include <AbsMouse.h>
 
 // Set which digital pin you've connected the trigger to here
-int triggerPin = 5;
+int triggerPinLeft = 5;
+int triggerPinMiddle = 6;
+int triggerPinRight = 7;
 
 // This is the trigger state
-int lastTriggerState = 0;
+int lastTriggerStateLeft = 0;
+int lastTriggerStateMiddle = 0;
+int lastTriggerStateRight = 0;
 
 void setup() {
   // Init the abs mouse class and tell it the maximum values
   AbsMouse.init(1024, 1024);
 
   // Setup the trigger pin as an input
-  pinMode(triggerPin, INPUT);
+  pinMode(triggerPinLeft, INPUT);
+  pinMode(triggerPinMiddle, INPUT);
+  pinMode(triggerPinRight, INPUT);
 }
 
 // the loop routine runs over and over again forever:
@@ -25,13 +31,35 @@ void loop() {
   // Move the mouse to this point
   AbsMouse.move(xValue, yValue);
 
-  // Check to see if we need to do a click
-  int triggerState = digitalRead(triggerPin);
-  if (triggerState != lastTriggerState) {
-    if (triggerState == LOW) {
+  // Check to see if we need to do a left click
+  int triggerStateLeft = digitalRead(triggerPinLeft);
+  if (triggerStateLeft != lastTriggerStateLeft) {
+    if (triggerStateLeft == LOW) {
       AbsMouse.press(MOUSE_LEFT);
     } else {
       AbsMouse.release(MOUSE_LEFT);
+    }
+    delay(10);  // Unsure what this delay is for, but might need it.
+  }
+  
+  // Check to see if we need to do a middle click
+  int triggerStateMiddle = digitalRead(triggerPinMiddle);
+  if (triggerStateMiddle != lastTriggerStateMiddle) {
+    if (triggerStateMiddle == LOW) {
+      AbsMouse.press(MOUSE_MIDDLE);
+    } else {
+      AbsMouse.release(MOUSE_MIDDLE);
+    }
+    delay(10);  // Unsure what this delay is for, but might need it.
+  }
+  
+  // Check to see if we need to do a right click
+  int triggerStateRight = digitalRead(triggerPinRight);
+  if (triggerStateRight != lastTriggerStateRight) {
+    if (triggerStateRight == LOW) {
+      AbsMouse.press(MOUSE_RIGHT);
+    } else {
+      AbsMouse.release(MOUSE_RIGHT);
     }
     delay(10);  // Unsure what this delay is for, but might need it.
   }
