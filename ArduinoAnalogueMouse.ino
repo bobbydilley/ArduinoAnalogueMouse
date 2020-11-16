@@ -41,6 +41,7 @@ void loop() {
     }
     delay(10);  // Unsure what this delay is for, but might need it.
   }
+  lastTriggerStateLeft = triggerStateLeft;
   
   // Check to see if we need to do a middle click
   int triggerStateMiddle = digitalRead(triggerPinMiddle);
@@ -52,6 +53,7 @@ void loop() {
     }
     delay(10);  // Unsure what this delay is for, but might need it.
   }
+  lastTriggerStateMiddle = triggerStateMiddle;
   
   // Check to see if we need to do a right click
   int triggerStateRight = digitalRead(triggerPinRight);
@@ -63,6 +65,7 @@ void loop() {
     }
     delay(10);  // Unsure what this delay is for, but might need it.
   }
+  lastTriggerStateRight = triggerStateRight;
 
   delay(1);        // delay in between reads for stability
 }
